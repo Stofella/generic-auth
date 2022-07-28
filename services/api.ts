@@ -83,11 +83,10 @@ api.interceptors.response.use(response => {
           },
         })
       });
-    }
-    else { //deslogar o usuario
+    } else { //deslogar o usuario
       signOut();
     }
   }
 
   return Promise.reject(error);
-})
+});
