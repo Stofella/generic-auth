@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { parseCookies , setCookie} from 'nookies'
+import { signOut } from '../contexts/AuthContext';
 
 interface AxiosErrorResponse {
   code?: string;
@@ -69,6 +70,7 @@ api.interceptors.response.use(response => {
         failedRequestsQueue.push({
           onSuccess: (token: string) => { // caso de sucesso ao fazer o refreshToken
             if(!originalConfig?.headers) {
+            console.log('entrei aqui ?')
               return //Eu coloquei um return mas pode colocar algum erro ou um reject 
             }
 
@@ -83,7 +85,9 @@ api.interceptors.response.use(response => {
       });
     }
     else { //deslogar o usuario
-      
+      signOut();
     }
   }
+
+  return Promise.reject(error);
 })
